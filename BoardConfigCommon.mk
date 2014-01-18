@@ -17,10 +17,20 @@
 # Skip droiddoc build to save build time
 BOARD_SKIP_ANDROID_DOC_BUILD := true
 
+# Some proprietary libs need reservedVectorImpl variants
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+
 # Audio
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := false
-COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+BOARD_USES_TINY_AUDIO := false
+#USE_PROPRIETARY_AUDIO_EXTENSIONS := true
+
+# Sense 4.5 / Sense 5 audio.primary blob support. See: include/hardware/audio.h
+BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
+# Uncomment if you want try the Sense 5 audio_policy
+# COMMON_GLOBAL_CFLAGS += -DMR1_AUDIO_BLOB
 
 #Camera
 USE_CAMERA_STUB := false
@@ -60,7 +70,10 @@ ENABLE_WEBGL := true
 
 # EGL settings
 USE_OPENGL_RENDERER := true
-BOARD_EGL_NEEDS_LEGACY_FB := true
+#BOARD_HAVE_PIXEL_FORMAT_INFO := true
+
+# No EGL_KHR_gl_colorspace
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_EGL_CFG := device/htc/tegra3-common/configs/egl.cfg
 
 # BT
@@ -72,24 +85,17 @@ BOARD_VOLD_MAX_PARTITIONS := 22
 BOARD_HAS_SDCARD_INTERNAL := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/f_mass_storage/lun0/file"
 
-# HTC specific
-BOARD_USE_NEW_LIBRIL_HTC := true
-
 # HTCLOG
 COMMON_GLOBAL_CFLAGS += -DHTCLOG
 
-# SE Linux policies
-BOARD_SEPOLICY_DIRS := \
-    device/htc/tegra3-common/selinux
-
-BOARD_SEPOLICY_UNION := \
-    file_contexts \
-    file.te \
-    device.te \
-    domain.te
+# FIXME: Fix SELinux rules
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 
 # NvCamera extensions
 TARGET_SPECIFIC_HEADER_PATH := device/htc/tegra3-common/include
 
 # Hardware tunables
 BOARD_HARDWARE_CLASS := device/htc/tegra3-common/cmhw/
+
+# RIL (fix network scan issue)
+BOARD_USE_NEW_LIBRIL_HTC := true
