@@ -27,6 +27,9 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 ARCH_ARM_USE_NON_NEON_MEMCPY := true
 
+MALLOC_IMPL := dlmalloc
+BOARD_USES_LEGACY_MMAP := true
+
 # Board naming
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOOTLOADER_BOARD_NAME :=
@@ -49,10 +52,9 @@ COMMON_GLOBAL_CFLAGS += -DHTC_TEGRA_AUDIO
 
 #Camera
 USE_CAMERA_STUB := false # set to true by vendor
-BOARD_HAVE_HTC_FFC := true
-BOARD_CAMERA_HAVE_ISO := true
-COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
-COMMON_GLOBAL_CFLAGS += -DHTC_CAMERA_HARDWARE
+# external/skia: Old SkImageDecoder::DecodeFile symbol.
+# Needed for camera.vendor.tegra.so and its dependencies.
+COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_DECODEFILE
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
@@ -89,3 +91,32 @@ BOARD_RIL_CLASS := ../../../device/htc/tegra3-common/ril/
 
 # Skip droiddoc build to save build time
 BOARD_SKIP_ANDROID_DOC_BUILD := true
+
+# SELinux Defines
+BOARD_SEPOLICY_DIRS := \
+    device/htc/tegra3-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+        file_contexts \
+        genfs_contexts \
+	property_contexts \
+        bluetooth.te \
+        btmacreader.te \
+        device.te \
+        domain.te \
+        drmserver.te \
+	imc_download.te \
+	init.te \
+        init_shell.te \
+        file.te \
+        gpsd.te \
+        keystore.te \
+        lmkd.te \
+        mediaserver.te \
+	misc.te \
+        rild.te \
+        surfaceflinger.te \
+        system_app.te \
+        system_server.te \
+        ueventd.te \
+        vold.te
