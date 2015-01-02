@@ -57,6 +57,9 @@ USE_CAMERA_STUB := false # set to true by vendor
 # external/skia: Old SkImageDecoder::DecodeFile symbol.
 # Needed for camera.vendor.tegra.so and its dependencies.
 COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_DECODEFILE
+COMMON_GLOBAL_CFLAGS += -DSK_SUPPORT_LEGACY_SETCONFIG
+
+USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
