@@ -57,3 +57,6 @@ allow rilpos rild_socket:sock_file write;
 
 # Allow creation of pseudo-terminals
 allow rilpos devpts:chr_file rw_file_perms;
+
+#============= adbd ==============
+allow adbd auditd_log:dir getattr;
