@@ -11,4 +11,4 @@ allow init radio_device:chr_file relabelto;
 allow init app_data_file:dir { relabelfrom read getattr };
 allow init app_data_file:file { relabelfrom getattr };
 # NOT ALLOWED # 
-allow init system_file:file relabelfrom;
+# allow init system_file:file relabelfrom;
