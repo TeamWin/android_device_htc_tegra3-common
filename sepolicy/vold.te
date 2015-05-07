@@ -2,7 +2,7 @@
 allow vold self:process execmem;
 
 #============= vold ==============
-# try without # allow vold kernel:system module_request;
+allow vold kernel:system module_request;
 
 # allow vold dirty_ratio access
 allow vold proc:file rw_file_perms;
