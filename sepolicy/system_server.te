@@ -18,3 +18,6 @@ allow system_server sysfs_devices_tegradc:dir r_dir_perms;
 
 # CMHW
 allow system_app sysfs_writable:file rw_file_perms;
+
+#============= system_server ==============
+allow system_server sysfs_writable:file { read write };
