@@ -92,6 +92,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/ramdisk/init.tegra3-common.rc:root/init.tegra3-common.rc
 
+#help GL work in M
+PRODUCT_PACKAGES += \
+    libdgv1
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.tegra
