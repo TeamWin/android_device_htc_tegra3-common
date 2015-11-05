@@ -22,4 +22,4 @@ allow mediaserver block_device:dir search;
 allow mediaserver shell_exec:file rx_file_perms;
 
 #==== relaxing  neverallow !!!  mediaserver ====
-allow mediaserver mediaserver_tmpfs:file execute;
+# allow mediaserver mediaserver_tmpfs:file execute;

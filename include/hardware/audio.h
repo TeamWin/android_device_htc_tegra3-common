@@ -196,16 +196,6 @@ __BEGIN_DECLS
 /* Query ADSP Status */
 #define AUDIO_PARAMETER_KEY_ADSP_STATUS "ADSP_STATUS"
 
-#ifdef QCOM_DIRECTTRACK
-/** Structure to save buffer information for applying effects for
-+ *  LPA buffers */
-struct buf_info {
-    int bufsize;
-    int nBufs;
-    int **buffers;
-};
-#endif
-
 /**************************************/
 
 /* common audio stream parameters and operations */
@@ -359,18 +349,6 @@ struct audio_stream_out {
     int (*get_render_position)(const struct audio_stream_out *stream,
                                uint32_t *dsp_frames);
 
-#ifdef QCOM_DIRECTTRACK
-    /**
-     * start audio data rendering
-     */
-    int (*start)(struct audio_stream_out *stream);
-
-    /**
-     * stop audio data rendering
-     */
-    int (*stop)(struct audio_stream_out *stream);
-#endif
-
     /**
      * get the local time at which the next write to the audio driver will be presented.
      * The units are microseconds, where the epoch is decided by the local audio HAL.
@@ -431,7 +409,7 @@ struct audio_stream_out {
      *
      * Implementation of this function is mandatory for offloaded playback.
      */
-   int (*flush)(struct audio_stream_out* stream);
+    int (*flush)(struct audio_stream_out* stream);
 
     /**
      * Return a recent count of the number of audio frames presented to an external observer.
@@ -452,30 +430,6 @@ struct audio_stream_out {
     int (*get_presentation_position)(const struct audio_stream_out *stream,
                                uint64_t *frames, struct timespec *timestamp);
 
-#ifdef QCOM_DIRECTTRACK
-    /**
-    * return the current timestamp after quering to the driver
-     */
-    int (*get_time_stamp)(const struct audio_stream_out *stream,
-                               uint64_t *time_stamp);
-    /**
-    * EOS notification from HAL to Player
-     */
-    int (*set_observer)(const struct audio_stream_out *stream,
-                               void *observer);
-    /**
-     * Get the physical address of the buffer allocated in the
-     * driver
-     */
-    int (*get_buffer_info) (const struct audio_stream_out *stream,
-                                struct buf_info **buf);
-    /**
-     * Check if next buffer is available. Waits until next buffer is
-     * available
-     */
-    int (*is_buffer_available) (const struct audio_stream_out *stream,
-                                     int *isAvail);
-#endif
 };
 typedef struct audio_stream_out audio_stream_out_t;
 
