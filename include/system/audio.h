@@ -874,18 +874,18 @@ typedef struct {
 #define AUDIO_OFFLOAD_INFO_VERSION_CURRENT AUDIO_OFFLOAD_INFO_VERSION_0_1
 
 static const audio_offload_info_t AUDIO_INFO_INITIALIZER = {
-    version: AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
-    size: sizeof(audio_offload_info_t),
-    sample_rate: 0,
-    channel_mask: 0,
-    format: AUDIO_FORMAT_DEFAULT,
-    stream_type: AUDIO_STREAM_VOICE_CALL,
-    bit_rate: 0,
-    duration_us: 0,
-    has_video: false,
-    is_streaming: false,
-    bit_width: 16,
-    use_small_bufs: false,
+    .version = AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
+    .size = sizeof(audio_offload_info_t),
+    .sample_rate = 0,
+    .channel_mask = 0,
+    .format = AUDIO_FORMAT_DEFAULT,
+    .stream_type = AUDIO_STREAM_VOICE_CALL,
+    .bit_rate = 0,
+    .duration_us = 0,
+    .has_video = false,
+    .is_streaming = false,
+    .bit_width = 16,
+    .use_small_bufs = false,
 };
 
 /* common audio stream configuration parameters
@@ -902,22 +902,22 @@ struct audio_config {
 typedef struct audio_config audio_config_t;
 
 static const audio_config_t AUDIO_CONFIG_INITIALIZER = {
-    sample_rate: 0,
-    channel_mask: AUDIO_CHANNEL_NONE,
-    format: AUDIO_FORMAT_DEFAULT,
-    offload_info: {
-        version: AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
-        size: sizeof(audio_offload_info_t),
-        sample_rate: 0,
-        channel_mask: 0,
-        format: AUDIO_FORMAT_DEFAULT,
-        stream_type: AUDIO_STREAM_VOICE_CALL,
-        bit_rate: 0,
-        duration_us: 0,
-        has_video: false,
-        is_streaming: false
+    .sample_rate = 0,
+    .channel_mask = AUDIO_CHANNEL_NONE,
+    .format = AUDIO_FORMAT_DEFAULT,
+    .offload_info = {
+        .version = AUDIO_OFFLOAD_INFO_VERSION_CURRENT,
+        .size = sizeof(audio_offload_info_t),
+        .sample_rate = 0,
+        .channel_mask = 0,
+        .format = AUDIO_FORMAT_DEFAULT,
+        .stream_type = AUDIO_STREAM_VOICE_CALL,
+        .bit_rate = 0,
+        .duration_us = 0,
+        .has_video = false,
+        .is_streaming = false
     },
-    frame_count: 0,
+    .frame_count = 0,
 };
 
 
@@ -1522,7 +1522,7 @@ static inline size_t audio_bytes_per_sample(audio_format_t format)
 }
 
 /* converts device address to string sent to audio HAL via set_parameters */
-static char *audio_device_address_to_parameter(audio_devices_t device, const char *address)
+static inline char *audio_device_address_to_parameter(audio_devices_t device, const char *address)
 {
     const size_t kSize = AUDIO_DEVICE_MAX_ADDRESS_LEN + sizeof("a2dp_sink_address=");
     char param[kSize];
