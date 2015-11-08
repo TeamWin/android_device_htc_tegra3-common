@@ -64,7 +64,7 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # OMX
 # frameworks/native/libs/gui: Legacy setPosition symbol for lib libnvwinsys.so
 # which is required by the Nvidia OMX codecs.
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_SET_POSITION_SYMBOL
+COMMON_GLOBAL_CFLAGS += -DUSES_LEGACY_SET_POSITION
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
